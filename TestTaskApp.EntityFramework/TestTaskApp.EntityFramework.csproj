@@ -50,8 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\EntityPriority.cs" />
+    <Compile Include="Entities\IDateTRacked.cs" />
     <Compile Include="Entities\TestEntity.cs" />
-    <Compile Include="EntityContext.cs" />
+    <Compile Include="TestTaskAppContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
