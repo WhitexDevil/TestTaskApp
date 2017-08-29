@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
+using TestTaskApp.Frontend.Dto.Request;
+using TestTaskApp.Frontend.Dto.Response;
 
 namespace TestTaskApp.Frontend.ApiControllers
 {
@@ -11,28 +10,38 @@ namespace TestTaskApp.Frontend.ApiControllers
     {
 
         [HttpGet]
-        public IHttpActionResult Get(int id)
+        public async Task<IEnumerable<TestEntityResponseDto>> Get()
         {
-            return null;
+            
+            var ent = new TestEntityResponseDto
+            {
+                Name = "ent",
+                Description = "desc",
+                Priority = 0,
+                Done = false
+            };
+            var result = new List<TestEntityResponseDto>();
+            result.Add(ent);
+            return result;
         }
 
         [HttpPost]
         [Authorize]
-        public IHttpActionResult Post(int id)
+        public IHttpActionResult Post(TestEntityUpdateRequestDto model)
         {
             return null;
         }
 
         [HttpDelete]
         [Authorize]
-        public IHttpActionResult Delete(int id)
+        public IHttpActionResult Delete(TestEntityDeleteRequestDto model)
         {
             return null;
         }
 
         [HttpPatch]
         [Authorize]
-        public IHttpActionResult Patch(int id)
+        public IHttpActionResult Patch(TestEntityAddRequestDto model)
         {
             return null;
         }
