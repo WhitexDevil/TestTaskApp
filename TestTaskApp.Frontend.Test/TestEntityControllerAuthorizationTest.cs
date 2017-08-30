@@ -21,8 +21,7 @@ namespace TestTaskApp.Frontend.Test
             using (var server = TestServer.Create<TestStartup>())
             {
                 var result = await server.HttpClient.GetAsync("api/TestEntity");
-                var code = result.StatusCode;
-                Assert.IsTrue(code !=HttpStatusCode.Unauthorized);
+                Assert.IsTrue(result.IsSuccessStatusCode);
             }
         }
 

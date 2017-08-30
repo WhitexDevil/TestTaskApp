@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using Owin;
+using TestTaskApp.Frontend.AppStart;
 using TestTaskApp.Frontend.Infrastructure.Authentication;
 
 namespace TestTaskApp.Frontend.Test.Infrastructure
@@ -15,14 +16,15 @@ namespace TestTaskApp.Frontend.Test.Infrastructure
             config.SuppressHostPrincipal();
             config.Filters.Add(new DummyAuthenticationAttrribute());
 
-            config.MapHttpAttributeRoutes();
+            AutofacConfig.Register(config);
 
+            config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            
+
             app.UseWebApi(config);
         }
     }

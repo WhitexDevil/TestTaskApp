@@ -142,10 +142,10 @@
     <Compile Include="AppStart\AutofacConfig.cs" />
     <Compile Include="ApiControllers\TestEntityController.cs" />
     <Compile Include="AppStart\WebApiConfig.cs" />
-    <Compile Include="Infrastructure\Authentication\AddChallengeOnUnauthorizedResult.cs" />
-    <Compile Include="Infrastructure\Authentication\AuthenticationFailureResult.cs" />
-    <Compile Include="Infrastructure\Authentication\BasicAuthenticationAttribute.cs" />
-    <Compile Include="Infrastructure\Authentication\DummyAuthenticationAttrribute.cs" />
+    <Compile Include="Infrastructure\Filters\Authentication\AddChallengeOnUnauthorizedResult.cs" />
+    <Compile Include="Infrastructure\Filters\Authentication\AuthenticationFailureResult.cs" />
+    <Compile Include="Infrastructure\Filters\Authentication\BasicAuthenticationAttribute.cs" />
+    <Compile Include="Infrastructure\Filters\Authentication\DummyAuthenticationAttrribute.cs" />
     <Compile Include="Infrastructure\TestEntityRepository.cs" />
     <Compile Include="Infrastructure\ITestEntityRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
