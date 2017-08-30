@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
+using TestTaskApp.Frontend.Infrastructure.Authentication;
 
 
 namespace TestTaskApp.Frontend.AppStart
@@ -11,11 +8,12 @@ namespace TestTaskApp.Frontend.AppStart
     {
         public static void Register(HttpConfiguration config)
         {
-            // TODO: Add any additional configuration code.
+            config.SuppressHostPrincipal();
+            config.Filters.Add(new DummyAuthenticationAttrribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+            
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

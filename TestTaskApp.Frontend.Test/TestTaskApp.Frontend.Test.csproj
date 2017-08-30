@@ -85,7 +85,7 @@
   <ItemGroup>
     <Compile Include="Infrastructure\TestStartup.cs" />
     <Compile Include="Infrastructure\TestWebApiResolver.cs" />
-    <Compile Include="TestEntityControllerTest.cs" />
+    <Compile Include="TestEntityControllerAuthorizationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

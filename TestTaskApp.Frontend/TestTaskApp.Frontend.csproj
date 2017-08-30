@@ -67,6 +67,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -138,6 +142,10 @@
     <Compile Include="AppStart\AutofacConfig.cs" />
     <Compile Include="ApiControllers\TestEntityController.cs" />
     <Compile Include="AppStart\WebApiConfig.cs" />
+    <Compile Include="Infrastructure\Authentication\AddChallengeOnUnauthorizedResult.cs" />
+    <Compile Include="Infrastructure\Authentication\AuthenticationFailureResult.cs" />
+    <Compile Include="Infrastructure\Authentication\BasicAuthenticationAttribute.cs" />
+    <Compile Include="Infrastructure\Authentication\DummyAuthenticationAttrribute.cs" />
     <Compile Include="Infrastructure\TestEntityRepository.cs" />
     <Compile Include="Infrastructure\ITestEntityRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

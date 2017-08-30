@@ -10,7 +10,7 @@ namespace TestTaskApp.Frontend.ApiControllers
     {
 
         [HttpGet]
-        public async Task<IEnumerable<TestEntityResponseDto>> Get()
+        public async Task<IHttpActionResult> Get()
         {
             
             var ent = new TestEntityResponseDto
@@ -22,28 +22,28 @@ namespace TestTaskApp.Frontend.ApiControllers
             };
             var result = new List<TestEntityResponseDto>();
             result.Add(ent);
-            return result;
+            return Ok(result);
         }
 
         [HttpPost]
         [Authorize]
         public IHttpActionResult Post(TestEntityUpdateRequestDto model)
         {
-            return null;
+            return Ok();
         }
 
         [HttpDelete]
         [Authorize]
         public IHttpActionResult Delete(TestEntityDeleteRequestDto model)
         {
-            return null;
+            return Ok();
         }
 
         [HttpPatch]
         [Authorize]
         public IHttpActionResult Patch(TestEntityAddRequestDto model)
         {
-            return null;
+            return Ok();
         }
     }
 }

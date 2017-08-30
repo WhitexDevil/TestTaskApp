@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using Owin;
+using TestTaskApp.Frontend.Infrastructure.Authentication;
 
 namespace TestTaskApp.Frontend.Test.Infrastructure
 {
@@ -10,6 +11,9 @@ namespace TestTaskApp.Frontend.Test.Infrastructure
         {
             HttpConfiguration config = new HttpConfiguration();
             config.Services.Replace(typeof(IAssembliesResolver), new TestWebApiResolver());
+
+            config.SuppressHostPrincipal();
+            config.Filters.Add(new DummyAuthenticationAttrribute());
 
             config.MapHttpAttributeRoutes();
 
