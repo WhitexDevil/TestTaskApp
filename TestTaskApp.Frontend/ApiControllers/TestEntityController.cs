@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TestTaskApp.Frontend.Dto.Request;
@@ -9,11 +10,11 @@ namespace TestTaskApp.Frontend.ApiControllers
 {
     public class TestEntityController : ApiController
     {
-        private readonly ITestEntityRepository _entityRepository;
+        private readonly ITestEntityServise _entityServise;
 
-        public TestEntityController(ITestEntityRepository entityRepository)
+        public TestEntityController(ITestEntityServise entityServise)
         {
-            _entityRepository = entityRepository;
+            _entityServise = entityServise;
         }
 
         [HttpGet]
@@ -32,23 +33,39 @@ namespace TestTaskApp.Frontend.ApiControllers
             return Ok(result);
         }
 
+        [HttpGet]
+        public async Task<IHttpActionResult> Get(int id)
+        {
+
+            var ent = new TestEntityResponseDto
+            {
+                Name = "ent",
+                Description = "desc",
+                Priority = 0,
+                Done = false
+            };
+            var result = new List<TestEntityResponseDto>();
+            result.Add(ent);
+            return Ok(result);
+        }
+
         [HttpPost]
         [Authorize]
-        public IHttpActionResult Post(TestEntityUpdateRequestDto model)
+        public IHttpActionResult Post([FromBody] TestEntityRequestDto model)
         {
-            return Ok();
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         [HttpDelete]
         [Authorize]
-        public IHttpActionResult Delete(TestEntityDeleteRequestDto model)
+        public IHttpActionResult Delete(int id)
         {
-            return Ok();
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [HttpPatch]
+        [HttpPut]
         [Authorize]
-        public IHttpActionResult Patch(TestEntityAddRequestDto model)
+        public IHttpActionResult Put([FromUri]int id, [FromBody] TestEntityRequestDto model)
         {
             return Ok();
         }

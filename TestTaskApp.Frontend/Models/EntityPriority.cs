@@ -1,5 +1,5 @@
 ﻿
-namespace TestTaskApp.EntityFramework.Entities
+namespace TestTaskApp.Frontend.Models
 {
     public enum EntityPriority : byte
     {

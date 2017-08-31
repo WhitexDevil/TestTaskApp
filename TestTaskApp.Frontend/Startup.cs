@@ -4,7 +4,7 @@ using System.Web.Http;
 using Autofac;
 using Microsoft.Owin;
 using Owin;
-using TestTaskApp.Frontend.AppStart;
+using TestTaskApp.Frontend.App_Start;
 
 [assembly: OwinStartup(typeof(TestTaskApp.Frontend.Startup))]
 

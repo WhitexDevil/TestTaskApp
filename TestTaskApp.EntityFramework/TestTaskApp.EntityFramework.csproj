@@ -50,9 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
-    <Compile Include="Entities\EntityPriority.cs" />
     <Compile Include="Entities\IDateTRacked.cs" />
-    <Compile Include="Entities\TestEntity.cs" />
+    <Compile Include="Entities\DBTestEntity.cs" />
     <Compile Include="TestTaskAppContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestTaskAppDbInitializer.cs" />

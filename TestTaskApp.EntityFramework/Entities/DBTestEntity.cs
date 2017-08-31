@@ -2,7 +2,7 @@
 
 namespace TestTaskApp.EntityFramework.Entities
 {
-    public class TestEntity : IDateTracked
+    public class DbTestEntity : IDateTracked
     {
         public int Id { get; set; }
 
@@ -14,7 +14,7 @@ namespace TestTaskApp.EntityFramework.Entities
 
         public DateTime UpdatedDate { get; set; }
 
-        public EntityPriority Priority { get; set; }
+        public byte Priority { get; set; }
 
         public bool Done { get; set; }
 

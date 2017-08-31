@@ -4,7 +4,7 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using TestTaskApp.Frontend.Infrastructure;
 
-namespace TestTaskApp.Frontend.AppStart
+namespace TestTaskApp.Frontend.App_Start
 {
     public static class AutofacConfig
     {
@@ -22,8 +22,8 @@ namespace TestTaskApp.Frontend.AppStart
 
         private static void RegisterInfrastructure(ContainerBuilder builder)
         {
-            builder.RegisterType<TestEntityRepository>()
-                .As<ITestEntityRepository>()
+            builder.RegisterType<TestEntityServise>()
+                .As<ITestEntityServise>()
                 .InstancePerRequest();
         }
     }

@@ -139,20 +139,28 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppStart\AutofacConfig.cs" />
+    <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="ApiControllers\TestEntityController.cs" />
-    <Compile Include="AppStart\WebApiConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Infrastructure\Filters\Authentication\AddChallengeOnUnauthorizedResult.cs" />
     <Compile Include="Infrastructure\Filters\Authentication\AuthenticationFailureResult.cs" />
     <Compile Include="Infrastructure\Filters\Authentication\BasicAuthenticationAttribute.cs" />
     <Compile Include="Infrastructure\Filters\Authentication\DummyAuthenticationAttrribute.cs" />
-    <Compile Include="Infrastructure\TestEntityRepository.cs" />
-    <Compile Include="Infrastructure\ITestEntityRepository.cs" />
+    <Compile Include="Infrastructure\Services\TestEntityServise.cs" />
+    <Compile Include="Infrastructure\Services\ITestEntityServise.cs" />
+    <Compile Include="Models\EntityPriority.cs" />
+    <Compile Include="Models\TestEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Infrastructure\DataAccess\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestTaskApp.EntityFramework\TestTaskApp.EntityFramework.csproj">
+      <Project>{0544850d-781e-47d9-b57f-355a514878c1}</Project>
+      <Name>TestTaskApp.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestTaskApp.Frontend.Dto\TestTaskApp.Frontend.Dto.csproj">
       <Project>{6b5aa9d3-620b-4254-94e1-69eb7a6e0fac}</Project>
       <Name>TestTaskApp.Frontend.Dto</Name>

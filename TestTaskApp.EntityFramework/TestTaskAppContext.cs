@@ -15,13 +15,16 @@ namespace TestTaskApp.EntityFramework
             objectContext.SavingChanges += OnSavingChanges;
         }
 
-        public DbSet<TestEntity> TestEntities { get; set; }
+        public DbSet<DbTestEntity> TestEntities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TestEntity>()
+            modelBuilder.Entity<DbTestEntity>()
+                .ToTable("TestEntity");
+
+            modelBuilder.Entity<DbTestEntity>()
                 .Property(t => t.Name)
                 .IsUnicode(true);
 
