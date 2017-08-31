@@ -51,6 +51,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.7.1.1\lib\net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentValidation.WebApi, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.WebApi.7.1.1\lib\net45\FluentValidation.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
@@ -118,10 +126,6 @@
     <ProjectReference Include="..\TestTaskApp.EntityFramework\TestTaskApp.EntityFramework.csproj">
       <Project>{0544850d-781e-47d9-b57f-355a514878c1}</Project>
       <Name>TestTaskApp.EntityFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestTaskApp.Frontend.Dto\TestTaskApp.Frontend.Dto.csproj">
-      <Project>{6b5aa9d3-620b-4254-94e1-69eb7a6e0fac}</Project>
-      <Name>TestTaskApp.Frontend.Dto</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestTaskApp.Frontend\TestTaskApp.Frontend.csproj">
       <Project>{bcb3f82d-acfe-4bab-bc60-44a3aa4c179d}</Project>

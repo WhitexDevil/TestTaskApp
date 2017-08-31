@@ -8,8 +8,8 @@ using Microsoft.Owin.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestTaskApp.EntityFramework;
 using TestTaskApp.EntityFramework.Entities;
-using TestTaskApp.Frontend.Dto.Request;
-using TestTaskApp.Frontend.Dto.Response;
+using TestTaskApp.Frontend.DTOs.Request;
+using TestTaskApp.Frontend.DTOs.Response;
 using TestTaskApp.Frontend.Test.Infrastructure;
 
 namespace TestTaskApp.Frontend.Test.IntegrationTests
@@ -84,7 +84,8 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
             var httpClient = TestApiHelper.GetAuthorizedClient(Server);
             var request = CreateSimpleRequestDto("[INSERT]");
 
-            var responce = await httpClient.PostAsJsonAsync("api/TestEntity", request);
+            await httpClient.PostAsJsonAsync("api/TestEntity", request);
+
             var dbTestEntity = _dbContext.TestEntities.FirstOrDefault(c => c.Name == request.Name);
             if (dbTestEntity != null)
                 _testEntityIds.Add(dbTestEntity.Id);
@@ -96,13 +97,28 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         }
 
         [TestMethod]
+        public async Task TestPostValidationPriorityFailMethod()
+        {
+            var httpClient = TestApiHelper.GetAuthorizedClient(Server);
+            var request = CreateSimpleRequestDto("[INSERT]");
+            request.Priority = 7;
+
+            var responce = await httpClient.PostAsJsonAsync("api/TestEntity", request);
+            var dbTestEntity = _dbContext.TestEntities.FirstOrDefault(c => c.Name == request.Name);
+            if (dbTestEntity != null)
+                _testEntityIds.Add(dbTestEntity.Id);
+
+            Assert.IsTrue(responce.StatusCode == HttpStatusCode.BadRequest);
+        }
+        
+        [TestMethod]
         public async Task TestPutSuccessMethod()
         {
             var httpClient = TestApiHelper.GetAuthorizedClient(Server);
             var request = CreateSimpleRequestDto("UPDATE");
             var updatedId = AddToDbTestEntity();
 
-            var responce = await httpClient.PutAsJsonAsync("api/TestEntity/" + updatedId, request);
+            await httpClient.PutAsJsonAsync("api/TestEntity/" + updatedId, request);
             var dbTestEntity = _dbContext.TestEntities.FirstOrDefault(c => c.Id == updatedId);
             _dbContext.Entry(dbTestEntity).Reload();
 

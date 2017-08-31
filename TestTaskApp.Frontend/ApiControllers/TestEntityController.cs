@@ -2,8 +2,8 @@
 using System.Net;
 using System.Web.Http;
 using AutoMapper;
-using TestTaskApp.Frontend.Dto.Request;
-using TestTaskApp.Frontend.Dto.Response;
+using TestTaskApp.Frontend.DTOs.Request;
+using TestTaskApp.Frontend.DTOs.Response;
 using TestTaskApp.Frontend.Infrastructure.Exceptions;
 using TestTaskApp.Frontend.Infrastructure.Services;
 using TestTaskApp.Frontend.Models;

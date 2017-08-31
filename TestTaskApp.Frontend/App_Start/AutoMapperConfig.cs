@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using TestTaskApp.EntityFramework.Entities;
-using TestTaskApp.Frontend.Dto.Request;
-using TestTaskApp.Frontend.Dto.Response;
+using TestTaskApp.Frontend.DTOs.Request;
+using TestTaskApp.Frontend.DTOs.Response;
 using TestTaskApp.Frontend.Models;
 
 namespace TestTaskApp.Frontend

@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestTaskApp.Frontend.Dto.Request;
+using TestTaskApp.Frontend.DTOs.Request;
 using TestTaskApp.Frontend.Test.Infrastructure;
 
 namespace TestTaskApp.Frontend.Test.IntegrationTests

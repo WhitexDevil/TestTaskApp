@@ -1,9 +1,11 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Dispatcher;
+using FluentValidation.WebApi;
 using Microsoft.Owin.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Owin;
 using TestTaskApp.Frontend.Infrastructure.Authentication;
+using TestTaskApp.Frontend.Infrastructure.Filters;
 using TestTaskApp.Frontend.Test.Infrastructure;
 
 namespace TestTaskApp.Frontend.Test.IntegrationTests
@@ -24,17 +26,22 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
 
                 _configuration.SuppressHostPrincipal();
                 _configuration.Filters.Add(new DummyAuthenticationAttrribute());
+                _configuration.Filters.Add(new ValidateModelStateFilter());
 
-                AutofacConfig.Register(_configuration);
-                AutoMapperConfig.Register();
-
+                // Web API routes
                 _configuration.MapHttpAttributeRoutes();
+
                 _configuration.Routes.MapHttpRoute(
                     name: "DefaultApi",
                     routeTemplate: "api/{controller}/{id}",
                     defaults: new { id = RouteParameter.Optional }
                 );
 
+                FluentValidationModelValidatorProvider.Configure(_configuration);
+
+                AutofacConfig.Register(_configuration);
+                AutoMapperConfig.Register();
+               
                 app.UseAutofacMiddleware(AutofacConfig.Container);
                 app.UseWebApi(_configuration);
             });
