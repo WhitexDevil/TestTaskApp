@@ -3,7 +3,6 @@ using System.Web.Http.Dispatcher;
 using Microsoft.Owin.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Owin;
-using TestTaskApp.Frontend.App_Start;
 using TestTaskApp.Frontend.Infrastructure.Authentication;
 using TestTaskApp.Frontend.Test.Infrastructure;
 
@@ -27,6 +26,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
                 _configuration.Filters.Add(new DummyAuthenticationAttrribute());
 
                 AutofacConfig.Register(_configuration);
+                AutoMapperConfig.Register();
 
                 _configuration.MapHttpAttributeRoutes();
                 _configuration.Routes.MapHttpRoute(

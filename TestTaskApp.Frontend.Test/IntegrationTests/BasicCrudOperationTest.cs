@@ -44,13 +44,14 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
             _dbContext.Dispose();
             base.Cleanup();
         }
-        
+
         [TestMethod]
         public async Task TestGetMethod()
         {
 
             var result = await Server.HttpClient.GetAsync("api/TestEntity");
-            var entities = await result.Content.ReadAsAsync<IEnumerable<TestEntityResponseDto>>();
+
+            var entities = await result.Content.ReadAsAsync<TestEntityResponseDto[]>();
 
             Assert.IsTrue(entities.Any());
         }
@@ -99,13 +100,14 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         {
             var httpClient = TestApiHelper.GetAuthorizedClient(Server);
             var request = CreateSimpleRequestDto("UPDATE");
-            var updatedId = AddToDbTestEntity(); 
+            var updatedId = AddToDbTestEntity();
 
             var responce = await httpClient.PutAsJsonAsync("api/TestEntity/" + updatedId, request);
             var dbTestEntity = _dbContext.TestEntities.FirstOrDefault(c => c.Id == updatedId);
+            _dbContext.Entry(dbTestEntity).Reload();
 
             Assert.IsNotNull(dbTestEntity);
-            Assert.IsTrue(dbTestEntity.Name == request.Name);
+            Assert.AreEqual(dbTestEntity.Name.Trim(), request.Name.Trim());
             Assert.IsTrue(dbTestEntity.Description == request.Description);
             Assert.IsTrue(dbTestEntity.Done == request.Done);
             Assert.IsTrue(dbTestEntity.Priority == request.Priority);
@@ -122,7 +124,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
             var dbEntity = _dbContext.TestEntities.FirstOrDefault(c => c.Id == idForDeletion);
             Assert.IsNull(dbEntity);
         }
-        
+
         private TestEntityRequestDto CreateSimpleRequestDto(string description = null)
         {
             return new TestEntityRequestDto
@@ -142,7 +144,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
                 Description = "descr",
                 Priority = 1,
                 Done = false
-            }; 
+            };
             _dbContext.TestEntities.Add(dbTestEntity);
             _dbContext.SaveChanges();
             var id = dbTestEntity.Id;

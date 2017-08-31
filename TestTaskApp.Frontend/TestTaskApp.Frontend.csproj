@@ -141,7 +141,9 @@
   <ItemGroup>
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="ApiControllers\TestEntityController.cs" />
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Infrastructure\Exceptions\TestEntityNotFoundException.cs" />
     <Compile Include="Infrastructure\Filters\Authentication\AddChallengeOnUnauthorizedResult.cs" />
     <Compile Include="Infrastructure\Filters\Authentication\AuthenticationFailureResult.cs" />
     <Compile Include="Infrastructure\Filters\Authentication\BasicAuthenticationAttribute.cs" />
@@ -153,9 +155,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\DataAccess\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\TestTaskApp.EntityFramework\TestTaskApp.EntityFramework.csproj">
       <Project>{0544850d-781e-47d9-b57f-355a514878c1}</Project>

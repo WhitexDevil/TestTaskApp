@@ -4,7 +4,6 @@ using System.Web.Http;
 using Autofac;
 using Microsoft.Owin;
 using Owin;
-using TestTaskApp.Frontend.App_Start;
 
 [assembly: OwinStartup(typeof(TestTaskApp.Frontend.Startup))]
 
@@ -18,6 +17,7 @@ namespace TestTaskApp.Frontend
             
             AutofacConfig.Register(httpConfiguration);
             WebApiConfig.Register(httpConfiguration);
+            AutoMapperConfig.Register();
 
             app.UseAutofacMiddleware(AutofacConfig.Container);
             app.UseWebApi(httpConfiguration);

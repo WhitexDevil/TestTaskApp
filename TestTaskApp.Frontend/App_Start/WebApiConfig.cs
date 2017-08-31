@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using TestTaskApp.Frontend.Infrastructure.Authentication;
 
-namespace TestTaskApp.Frontend.App_Start
+namespace TestTaskApp.Frontend
 {
     public static class WebApiConfig
     {

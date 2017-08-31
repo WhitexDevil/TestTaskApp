@@ -1,7 +1,6 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using Owin;
-using TestTaskApp.Frontend.App_Start;
 using TestTaskApp.Frontend.Infrastructure.Authentication;
 
 namespace TestTaskApp.Frontend.Test.Infrastructure

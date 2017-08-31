@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TestTaskApp.Frontend.Models;
 
-namespace TestTaskApp.Frontend.Infrastructure
+namespace TestTaskApp.Frontend.Infrastructure.Services
 {
     public interface ITestEntityServise 
     {

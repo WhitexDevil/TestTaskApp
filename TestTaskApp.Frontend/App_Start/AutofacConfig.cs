@@ -2,9 +2,9 @@
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
-using TestTaskApp.Frontend.Infrastructure;
+using TestTaskApp.Frontend.Infrastructure.Services;
 
-namespace TestTaskApp.Frontend.App_Start
+namespace TestTaskApp.Frontend
 {
     public static class AutofacConfig
     {

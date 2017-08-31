@@ -6,7 +6,7 @@
 
         public string Description { get; set; }
 
-        public int Priority { get; set; }
+        public byte Priority { get; set; }
 
         public bool Done { get; set; }
     }
