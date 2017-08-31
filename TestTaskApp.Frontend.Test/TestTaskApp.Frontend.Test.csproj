@@ -113,8 +113,6 @@
     <Compile Include="Infrastructure\TestApiHelper.cs" />
     <Compile Include="IntegrationTests\BaseApiTest.cs" />
     <Compile Include="IntegrationTests\BasicCrudOperationTest.cs" />
-    <Compile Include="Infrastructure\TestStartup.cs" />
-    <Compile Include="Infrastructure\TestWebApiResolver.cs" />
     <Compile Include="IntegrationTests\TestEntityControllerAuthorizationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

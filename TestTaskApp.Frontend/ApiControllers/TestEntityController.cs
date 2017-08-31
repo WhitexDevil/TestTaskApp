@@ -23,9 +23,7 @@ namespace TestTaskApp.Frontend.ApiControllers
         public IHttpActionResult Get()
         {
             var result = _entityServise.GetTestEntities().Select(Mapper.Map<TestEntityResponseDto>);
-            if (result.Any())
-                return Ok(result);
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(result);
         }
 
         [HttpGet]
