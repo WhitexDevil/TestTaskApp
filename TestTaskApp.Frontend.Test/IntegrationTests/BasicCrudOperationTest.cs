@@ -31,11 +31,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         {
             base.Setup();
 
-            var initialEntity = CreateSimpleDbTestEntity("Initial");
-
-            _dbContext.TestEntities.Add(initialEntity);
-            _dbContext.SaveChanges();
-            _testEntityIds.Add(initialEntity.Id);
+            AddToDbTestEntity();
         }
 
         [TestCleanup]
@@ -48,8 +44,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
             _dbContext.Dispose();
             base.Cleanup();
         }
-
-
+        
         [TestMethod]
         public async Task TestGetMethod()
         {
@@ -72,27 +67,24 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         [TestMethod]
         public async Task TestGetByIdSuccessMethod()
         {
+            var id = AddToDbTestEntity();
 
-            var result = await Server.HttpClient.GetAsync("api/TestEntity/" + _testEntityIds.First());
+            var result = await Server.HttpClient.GetAsync("api/TestEntity/" + id);
             var code = result.StatusCode;
-
             var entity = await result.Content.ReadAsAsync<TestEntityResponseDto>();
 
             Assert.IsTrue(code == HttpStatusCode.OK);
             Assert.IsNotNull(entity);
-
         }
 
         [TestMethod]
         public async Task TestPostSuccessMethod()
         {
-
             var httpClient = TestApiHelper.GetAuthorizedClient(Server);
-            var request = CreateSimpleTestEntityRequestDto("[INSERT]");
+            var request = CreateSimpleRequestDto("[INSERT]");
 
             var responce = await httpClient.PostAsJsonAsync("api/TestEntity", request);
             var dbTestEntity = _dbContext.TestEntities.FirstOrDefault(c => c.Name == request.Name);
-
             if (dbTestEntity != null)
                 _testEntityIds.Add(dbTestEntity.Id);
 
@@ -106,8 +98,8 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         public async Task TestPutSuccessMethod()
         {
             var httpClient = TestApiHelper.GetAuthorizedClient(Server);
-            var request = CreateSimpleTestEntityRequestDto("UPDATE");
-            var updatedId = _testEntityIds.First();
+            var request = CreateSimpleRequestDto("UPDATE");
+            var updatedId = AddToDbTestEntity(); 
 
             var responce = await httpClient.PutAsJsonAsync("api/TestEntity/" + updatedId, request);
             var dbTestEntity = _dbContext.TestEntities.FirstOrDefault(c => c.Id == updatedId);
@@ -122,11 +114,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         [TestMethod]
         public async Task TestDeleteSuccessMethod()
         {
-            var dbTestEntity = CreateSimpleDbTestEntity("DELETION");
-            _dbContext.TestEntities.Add(dbTestEntity);
-            _dbContext.SaveChanges();
-            var idForDeletion = dbTestEntity.Id;
-            _testEntityIds.Add(idForDeletion);
+            var idForDeletion = AddToDbTestEntity();
 
             var httpClient = TestApiHelper.GetAuthorizedClient(Server);
             await httpClient.DeleteAsync("api/TestEntity/" + idForDeletion);
@@ -134,19 +122,8 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
             var dbEntity = _dbContext.TestEntities.FirstOrDefault(c => c.Id == idForDeletion);
             Assert.IsNull(dbEntity);
         }
-
-        private DbTestEntity CreateSimpleDbTestEntity(string description = null)
-        {
-           return new DbTestEntity
-            {
-                Name = "@[TEST_ENTITY]@ " + Guid.NewGuid(),
-                Description = description ?? "descr",
-                Priority = 1,
-                Done = false
-            };
-        }
-
-        private TestEntityRequestDto CreateSimpleTestEntityRequestDto(string description = null)
+        
+        private TestEntityRequestDto CreateSimpleRequestDto(string description = null)
         {
             return new TestEntityRequestDto
             {
@@ -156,6 +133,21 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
                 Done = false
             };
         }
-        
+
+        private int AddToDbTestEntity()
+        {
+            var dbTestEntity = new DbTestEntity
+            {
+                Name = "@[TEST_ENTITY]@ " + Guid.NewGuid(),
+                Description = "descr",
+                Priority = 1,
+                Done = false
+            }; 
+            _dbContext.TestEntities.Add(dbTestEntity);
+            _dbContext.SaveChanges();
+            var id = dbTestEntity.Id;
+            _testEntityIds.Add(id);
+            return id;
+        }
     }
 }
