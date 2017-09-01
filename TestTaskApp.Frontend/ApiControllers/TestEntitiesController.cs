@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using TestTaskApp.Frontend.DTOs.Request;
@@ -10,11 +12,11 @@ using TestTaskApp.Frontend.Models;
 
 namespace TestTaskApp.Frontend.ApiControllers
 {
-    public class TestEntityController : ApiController
+    public class TestEntitiesController : ApiController
     {
         private readonly ITestEntityServise _entityServise;
 
-        public TestEntityController(ITestEntityServise entityServise)
+        public TestEntitiesController(ITestEntityServise entityServise)
         {
             _entityServise = entityServise;
         }
@@ -45,8 +47,9 @@ namespace TestTaskApp.Frontend.ApiControllers
         public IHttpActionResult Post([FromBody] TestEntityRequestDto dto)
         {
             var model = Mapper.Map<TestEntity>(dto);
-            _entityServise.Create(model);
-            return StatusCode(HttpStatusCode.NoContent);
+            var result = _entityServise.Create(model);
+            var response = Mapper.Map<TestEntityResponseDto>(result);
+            return Created(new Uri(Url.Link("TestEntitiesRout", result.Id)), response);
         }
 
         [HttpDelete]

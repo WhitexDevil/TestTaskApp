@@ -12,8 +12,11 @@ namespace TestTaskApp.Frontend
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<DbTestEntity, TestEntity>()
-                .ReverseMap();
+                cfg.CreateMap<DbTestEntity, TestEntity>();
+                cfg.CreateMap<TestEntity, DbTestEntity>()
+                    .ForMember(e => e.CreatedDate, opt => opt.Ignore())
+                    .ForMember(e => e.UpdatedDate, opt => opt.Ignore());
+
                 cfg.CreateMap<TestEntity, TestEntityResponseDto>();
                 cfg.CreateMap<TestEntityRequestDto, TestEntity>();
             });

@@ -10,7 +10,6 @@ namespace TestTaskApp.EntityFramework
         public TestTaskAppContext()
             : base("DbTestTaskAppConnection")
         {
-            Database.SetInitializer<TestTaskAppContext>(new TestTaskAppDbInitializer());
             var objectContext = ((IObjectContextAdapter)this).ObjectContext;
             objectContext.SavingChanges += OnSavingChanges;
         }

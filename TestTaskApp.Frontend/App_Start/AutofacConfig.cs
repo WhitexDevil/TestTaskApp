@@ -2,6 +2,9 @@
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
+using TestTaskApp.EntityFramework;
+using TestTaskApp.EntityFramework.Entities;
+using TestTaskApp.Frontend.Infrastructure.DataAccess;
 using TestTaskApp.Frontend.Infrastructure.Services;
 
 namespace TestTaskApp.Frontend
@@ -22,9 +25,19 @@ namespace TestTaskApp.Frontend
 
         private static void RegisterInfrastructure(ContainerBuilder builder)
         {
+            builder.RegisterType<TestTaskAppContext>()
+                .AsSelf()
+                .InstancePerRequest();
+
+            builder.RegisterType<TestEntityRepository>()
+                .As<IRepository<DbTestEntity>>()
+                .InstancePerRequest();
+
             builder.RegisterType<TestEntityServise>()
                 .As<ITestEntityServise>()
                 .InstancePerRequest();
+           
+            ;
         }
     }
 }

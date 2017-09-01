@@ -8,8 +8,8 @@ using TestTaskApp.EntityFramework;
 using TestTaskApp.EntityFramework.Entities;
 using TestTaskApp.Frontend.DTOs.Request;
 using TestTaskApp.Frontend.DTOs.Response;
-using TestTaskApp.Frontend.Infrastructure.Authentication;
 using TestTaskApp.Frontend.Infrastructure.Filters;
+using TestTaskApp.Frontend.Infrastructure.Filters.Authentication;
 using TestTaskApp.Frontend.Test.Infrastructure;
 
 namespace TestTaskApp.Frontend.Test.IntegrationTests
@@ -20,6 +20,8 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         private HttpConfiguration _configuration;
         public TestServer Server { get; private set; }
         public TestTaskAppContext DbContext;
+
+        public const string TestEntitiesRelativePath = "api/TestEntities/";
 
         [TestInitialize]
         public virtual void Setup()
@@ -40,7 +42,11 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
                     routeTemplate: "api/{controller}/{id}",
                     defaults: new { id = RouteParameter.Optional }
                 );
-
+                _configuration.Routes.MapHttpRoute(
+                    name: "TestEntitiesRout",
+                    routeTemplate: "api/TestEntities/{id}",
+                    defaults: new { id = RouteParameter.Optional }
+                );
                 FluentValidationModelValidatorProvider.Configure(_configuration);
 
                 AutofacConfig.Register(_configuration);
@@ -72,6 +78,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
 
         protected void AssertCompareRequestAndEntity(TestEntityRequestDto request, DbTestEntity dbEntity)
         {
+            Assert.IsNotNull(dbEntity);
             Assert.AreEqual(dbEntity.Description , request.Description);
             Assert.AreEqual(dbEntity.Done , request.Done);
             Assert.AreEqual(dbEntity.Priority , request.Priority);
@@ -80,6 +87,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
 
         protected void AssertCompareResponseAndEntity(TestEntityResponseDto response, DbTestEntity dbEntity)
         {
+            Assert.IsNotNull(dbEntity);
             Assert.AreEqual(dbEntity.Description, response.Description);
             Assert.AreEqual(dbEntity.Done, response.Done);
             Assert.AreEqual(dbEntity.Priority, response.Priority);

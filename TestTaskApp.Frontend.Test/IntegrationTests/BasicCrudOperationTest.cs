@@ -21,7 +21,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         [TestMethod]
         public async Task TestEmptyResult()
         {
-            var result = await Server.HttpClient.GetAsync("api/TestEntity");
+            var result = await Server.HttpClient.GetAsync(TestEntitiesRelativePath);
 
             var entities = await result.Content.ReadAsAsync<TestEntityResponseDto[]>();
 
@@ -33,7 +33,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         {
             AddToDbTestEntity();
 
-            var result = await Server.HttpClient.GetAsync("api/TestEntity");
+            var result = await Server.HttpClient.GetAsync(TestEntitiesRelativePath);
 
             var entities = await result.Content.ReadAsAsync<TestEntityResponseDto[]>();
 
@@ -43,7 +43,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         [TestMethod]
         public async Task TestGetByIdReturnNotFoundMethod()
         {
-            var result = await Server.HttpClient.GetAsync("api/TestEntity/" + int.MinValue);
+            var result = await Server.HttpClient.GetAsync(TestEntitiesRelativePath+ int.MinValue);
             var code = result.StatusCode;
 
             Assert.IsTrue(code == HttpStatusCode.NotFound);
@@ -54,7 +54,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         {
             var dbTestEntity = AddToDbTestEntity();
 
-            var result = await Server.HttpClient.GetAsync("api/TestEntity/" + dbTestEntity.Id);
+            var result = await Server.HttpClient.GetAsync(TestEntitiesRelativePath + dbTestEntity.Id);
             var code = result.StatusCode;
             var response = await result.Content.ReadAsAsync<TestEntityResponseDto>();
 
@@ -70,12 +70,14 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
             var httpClient = TestApiHelper.GetAuthorizedClient(Server);
             var request = TestApiHelper.CreateSimpleRequestDto("[INSERT]");
 
-            await httpClient.PostAsJsonAsync("api/TestEntity", request);
-
+            var response = await httpClient.PostAsJsonAsync(TestEntitiesRelativePath, request);
+            var statusCode = response.StatusCode;
             var dbTestEntity = DbContext.TestEntities.FirstOrDefault(c => c.Name == request.Name);
+            var responseeModel = await response.Content.ReadAsAsync<TestEntityResponseDto>();
 
-            Assert.IsNotNull(dbTestEntity);
+            Assert.AreEqual(HttpStatusCode.Created, statusCode);
             AssertCompareRequestAndEntity(request, dbTestEntity);
+            AssertCompareResponseAndEntity(responseeModel, dbTestEntity);
         }
 
         [TestMethod]
@@ -87,7 +89,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
             var request = TestApiHelper.CreateSimpleRequestDto("[INSERT]");
             request.Priority = 7;
 
-            var responce = await httpClient.PostAsJsonAsync("api/TestEntity/"+dbTestEntity.Id, request);
+            var responce = await httpClient.PostAsJsonAsync(TestEntitiesRelativePath + dbTestEntity.Id, request);
 
             Assert.IsTrue(responce.StatusCode == HttpStatusCode.BadRequest);
 
@@ -100,11 +102,11 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
             var request = TestApiHelper.CreateSimpleRequestDto("UPDATE");
             var dbEntity = AddToDbTestEntity();
 
-            await httpClient.PutAsJsonAsync("api/TestEntity/" + dbEntity.Id, request);
+            var response = await httpClient.PutAsJsonAsync(TestEntitiesRelativePath + dbEntity.Id, request);
 
             DbContext.Entry(dbEntity).Reload();
 
-            Assert.IsNotNull(dbEntity);
+            Assert.AreEqual(response.StatusCode,HttpStatusCode.NoContent);;
             AssertCompareRequestAndEntity(request, dbEntity);
         }
 
@@ -114,7 +116,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
             var dbEntity = AddToDbTestEntity();
 
             var httpClient = TestApiHelper.GetAuthorizedClient(Server);
-            await httpClient.DeleteAsync("api/TestEntity/" + dbEntity.Id);
+            await httpClient.DeleteAsync(TestEntitiesRelativePath + dbEntity.Id);
 
             Assert.IsNull(DbContext.TestEntities.FirstOrDefault(c => c.Id == dbEntity.Id));
         }

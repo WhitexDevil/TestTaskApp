@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using TestTaskApp.EntityFramework;
 using TestTaskApp.EntityFramework.Entities;
+using TestTaskApp.Frontend.Infrastructure.DataAccess;
 using TestTaskApp.Frontend.Infrastructure.Exceptions;
 using TestTaskApp.Frontend.Models;
 
 namespace TestTaskApp.Frontend.Infrastructure.Services
 {
-    public class TestEntityServise : ITestEntityServise,IDisposable
+    public class TestEntityServise : ITestEntityServise
     {
-        private readonly TestTaskAppContext _context;
-        public TestEntityServise()
+        private readonly IRepository<DbTestEntity> _testEntityRepository;
+        public TestEntityServise(IRepository<DbTestEntity> testEntityRepository)
         {
-            _context = new TestTaskAppContext();
+            _testEntityRepository = testEntityRepository;
         }
 
         public IEnumerable<TestEntity> GetTestEntities()
         {
-            return _context.TestEntities.Select(Mapper.Map<TestEntity>).ToList(); 
+            return _testEntityRepository.GetEntities().Select(Mapper.Map<TestEntity>).ToList(); 
         }
 
         public TestEntity GetEntity(int id)
@@ -28,40 +26,32 @@ namespace TestTaskApp.Frontend.Infrastructure.Services
             return Mapper.Map<TestEntity>(GetDbEntityById(id));
         }
 
-        public void Create(TestEntity item)
+        public TestEntity Create(TestEntity item)
         {
             var dbEntity = Mapper.Map<DbTestEntity>(item);
-            _context.TestEntities.Add(dbEntity);
-            _context.SaveChanges();
+            _testEntityRepository.Create(dbEntity);
+            _testEntityRepository.Save();
+            return Mapper.Map<TestEntity>(dbEntity);
         }
 
         public void Update(TestEntity item)
         {
             var dbEntity = GetDbEntityById(item.Id);
-
-            dbEntity.Name = item.Name;
-            dbEntity.Description = item.Description;
-            dbEntity.Done = item.Done;
-            dbEntity.Priority = (byte) item.Priority;
-
-            _context.SaveChanges();
+            Mapper.Map(item, dbEntity);
+            _testEntityRepository.Update(dbEntity);
+            _testEntityRepository.Save();
         }
 
         public void Delete(int id)
         {
-            var dbEntity = GetDbEntityById(id);
-            _context.TestEntities.Remove(dbEntity);
-            _context.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
+            GetDbEntityById(id);
+            _testEntityRepository.Delete(id);
+            _testEntityRepository.Save();
         }
 
         private DbTestEntity GetDbEntityById(int id)
         {
-            var dbEntity = _context.TestEntities.FirstOrDefault(e => e.Id == id);
+            var dbEntity = _testEntityRepository.GetEntity(id);
             if (dbEntity == null)
                 throw new TestEntityNotFoundException($"Can not find TestEntity with Id={id}");
             return dbEntity;

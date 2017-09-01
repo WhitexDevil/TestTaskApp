@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Http.Filters;
 
-namespace TestTaskApp.Frontend.Infrastructure.Authentication
+namespace TestTaskApp.Frontend.Infrastructure.Filters.Authentication
 {
     /// <summary>
     /// Implement Basic Access Authentication scheme (RFC 2617)

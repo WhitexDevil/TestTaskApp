@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestTaskApp.Frontend.DTOs.Request;
+using TestTaskApp.Frontend.Test.Infrastructure;
 
 namespace TestTaskApp.Frontend.Test.IntegrationTests
 {
@@ -12,7 +12,7 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         [TestMethod]
         public async Task TestAvailabilityOfUnauthorizedActions()
         {
-            var result = await Server.HttpClient.GetAsync("api/TestEntity");
+            var result = await Server.HttpClient.GetAsync(TestEntitiesRelativePath);
             Assert.IsTrue(result.IsSuccessStatusCode);
         }
 
@@ -20,15 +20,15 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
         public async Task TestUnauthenticatedCallOfAuthorizedActions()
         {
 
-            var postDto = new TestEntityRequestDto();
-            var putDto = new TestEntityRequestDto();
+            var postDto = TestApiHelper.CreateSimpleRequestDto();
+            var putDto = TestApiHelper.CreateSimpleRequestDto(); 
             var httpClient = Server.HttpClient;
 
-            var postResult = await httpClient.PostAsJsonAsync("api/TestEntity", postDto);
+            var postResult = await httpClient.PostAsJsonAsync(TestEntitiesRelativePath, postDto);
             var postCode = postResult.StatusCode;
-            var deleteResult = await httpClient.DeleteAsync("api/TestEntity/" +"1");
+            var deleteResult = await httpClient.DeleteAsync(TestEntitiesRelativePath + "1");
             var deleteCode = deleteResult.StatusCode;
-            var putResult = await httpClient.PutAsJsonAsync("api/TestEntity/"+1, putDto);
+            var putResult = await httpClient.PutAsJsonAsync(TestEntitiesRelativePath + 1, putDto);
             var putCode = putResult.StatusCode;
 
             Assert.IsTrue(postCode == HttpStatusCode.Unauthorized);

@@ -148,12 +148,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutofacConfig.cs" />
-    <Compile Include="ApiControllers\TestEntityController.cs" />
+    <Compile Include="ApiControllers\TestEntitiesController.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="DTOs\BaseTestEntityDto.cs" />
     <Compile Include="DTOs\Request\TestEntityRequestDto.cs" />
     <Compile Include="DTOs\Response\TestEntityResponseDto.cs" />
+    <Compile Include="Infrastructure\DataAccess\IRepository.cs" />
+    <Compile Include="Infrastructure\DataAccess\TestEntityRepository.cs" />
     <Compile Include="Infrastructure\DataValidators\IsInEnumValidator.cs" />
     <Compile Include="Infrastructure\DataValidators\TestEntityValidator.cs" />
     <Compile Include="Infrastructure\Exceptions\TestEntityNotFoundException.cs" />

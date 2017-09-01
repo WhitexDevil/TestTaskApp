@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace TestTaskApp.Frontend.Infrastructure.Authentication
+namespace TestTaskApp.Frontend.Infrastructure.Filters.Authentication
 {
     public class AuthenticationFailureResult : IHttpActionResult
     {

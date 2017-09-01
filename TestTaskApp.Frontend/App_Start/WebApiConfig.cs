@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using FluentValidation.WebApi;
-using TestTaskApp.Frontend.Infrastructure.Authentication;
 using TestTaskApp.Frontend.Infrastructure.Filters;
+using TestTaskApp.Frontend.Infrastructure.Filters.Authentication;
 
 namespace TestTaskApp.Frontend
 {
@@ -19,6 +19,11 @@ namespace TestTaskApp.Frontend
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+            config.Routes.MapHttpRoute(
+                name: "TestEntitiesRout",
+                routeTemplate: "api/TestEntities/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 

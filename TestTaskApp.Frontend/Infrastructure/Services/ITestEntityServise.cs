@@ -7,7 +7,7 @@ namespace TestTaskApp.Frontend.Infrastructure.Services
     {
         IEnumerable<TestEntity> GetTestEntities();
         TestEntity GetEntity(int id);
-        void Create(TestEntity item);
+        TestEntity Create(TestEntity item);
         void Update(TestEntity item);
         void Delete(int id);
     }

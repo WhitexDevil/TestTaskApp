@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TestTaskApp.Frontend.Infrastructure.Authentication
+namespace TestTaskApp.Frontend.Infrastructure.Filters.Authentication
 {
     public class DummyAuthenticationAttrribute:BasicAuthenticationAttribute
     {
