@@ -112,8 +112,10 @@
   <ItemGroup>
     <Compile Include="Infrastructure\TestApiHelper.cs" />
     <Compile Include="IntegrationTests\BaseApiTest.cs" />
-    <Compile Include="IntegrationTests\BasicCrudOperationTest.cs" />
-    <Compile Include="IntegrationTests\TestEntityControllerAuthorizationTest.cs" />
+    <Compile Include="IntegrationTests\DeleteActionTests.cs" />
+    <Compile Include="IntegrationTests\PutActionTests.cs" />
+    <Compile Include="IntegrationTests\PostActionTests.cs" />
+    <Compile Include="IntegrationTests\GetActionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -95,5 +95,10 @@ namespace TestTaskApp.Frontend.Test.IntegrationTests
             Assert.AreEqual(dbEntity.Id, response.Id);
         }
 
+        protected void AssertEntityNotChanged(DbTestEntity entity)
+        {
+            Assert.AreEqual(entity, DbContext.TestEntities.Find(entity.Id));
+        }
+
     }
 }
